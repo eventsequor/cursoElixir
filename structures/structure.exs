@@ -1,6 +1,6 @@
 defmodule StructurePerfil do
   defstruct [:nombre, :pais, :bebida, :comida, :animal]
-end
+end 
 
 # Declaration
 

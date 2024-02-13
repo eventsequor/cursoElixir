@@ -5,6 +5,9 @@ defmodule Recursivo do
 
   def factorial(n) do
     # n * (n-1)
-    n * factorial(n(-1))
+    n * factorial(n-1)
   end
 end
+
+value = Recursivo.factorial(400)
+IO.puts(value)

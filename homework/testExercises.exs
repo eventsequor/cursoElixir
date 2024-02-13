@@ -6,7 +6,6 @@ defmodule PrintTitles do
   end
 end
 
-
 PrintTitles.printTask(1)
 IO.puts("Check equilateral triangle (5, 5, 5)")
 IO.inspect(TriangleType.kind(5, 5, 5))
@@ -26,7 +25,10 @@ IO.puts("Updated Robot info:")
 IO.inspect(robot_new_position)
 
 PrintTitles.printTask(3)
-sentence = "hola eder hola, que tal ha estado? todo en tu trabajo ** *saludos saludos otra vez ssaludos"
+
+sentence =
+  "hola eder hola, que tal ha estado? todo en tu trabajo ** *saludos saludos otra vez ssaludos"
+
 expected_map = %{
   "eder" => 1,
   "en" => 1,
@@ -43,6 +45,82 @@ expected_map = %{
   "tu" => 1,
   "vez" => 1
 }
-result? = (expected_map === Counter.count(sentence))
+
+result? = expected_map === Counter.count(sentence)
 IO.puts("The expected map is correct: #{result?} \n\nExpected Map:")
 IO.inspect(expected_map)
+
+PrintTitles.printTask(4)
+tuple = {4, 2, 7, 6, 4, 8, 9, 1}
+IO.puts("Tuple input:")
+IO.inspect(tuple)
+IO.puts("Position of element number 8")
+IO.inspect(Search.search(tuple, 8))
+IO.puts("\nPosition of element number 6")
+IO.inspect(Search.search(tuple, 8))
+IO.puts("\nExpected error element is not in the tuple")
+IO.inspect(Search.search(tuple, 48))
+
+PrintTitles.printTask(5)
+# New inventory
+inventory = BoutiqueInventory.new()
+
+IO.puts("New inventory")
+IO.inspect(inventory)
+
+# Create item
+item = %BoutiqueInventory.SingleItemBoutique{
+  name: "chaqueta",
+  price: 9,
+  quantity_by_size: %{:s => 5}
+}
+
+item2 = %BoutiqueInventory.SingleItemBoutique{
+  name: "camisa",
+  price: 4,
+  quantity_by_size: %{:s => 5, :m => 7}
+}
+
+item3 = %BoutiqueInventory.SingleItemBoutique{
+  name: "pantalon",
+  price: 5,
+  quantity_by_size: %{:s => 5, :m => 7}
+}
+
+item4 = %BoutiqueInventory.SingleItemBoutique{
+  name: "cachucha",
+  price: 0,
+  quantity_by_size: %{:s => 3, :m => 4}
+}
+
+item5 = %BoutiqueInventory.SingleItemBoutique{
+  name: "sombrero",
+  price: 0,
+  quantity_by_size: %{:s => 3, :m => 5}
+}
+
+# Add item
+IO.puts("\nAdd element to inventory")
+IO.puts("Element to add:")
+IO.inspect(item)
+
+IO.puts("\nNew status of inventory items added")
+inventory = BoutiqueInventory.add_item(inventory, item)
+inventory = BoutiqueInventory.add_item(inventory, item2)
+inventory = BoutiqueInventory.add_item(inventory, item3)
+inventory = BoutiqueInventory.add_item(inventory, item4)
+inventory = BoutiqueInventory.add_item(inventory, item5)
+
+IO.puts("\n\nModify inventory")
+inventory = BoutiqueInventory.add_size(inventory, "pantalon", :l, 12)
+
+IO.puts("\nNew status of inventory after to update inventory")
+IO.inspect(inventory)
+
+IO.puts("\n\Sort by price inventory")
+inventory = BoutiqueInventory.sort_by_price(inventory)
+IO.inspect(inventory)
+
+IO.puts("\n\Missing item of price")
+inventory = BoutiqueInventory.with_missing_price(inventory)
+IO.inspect(inventory)

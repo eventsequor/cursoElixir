@@ -90,7 +90,7 @@ item3 = %BoutiqueInventory.SingleItemBoutique{
 item4 = %BoutiqueInventory.SingleItemBoutique{
   name: "cachucha",
   price: 0,
-  quantity_by_size: %{:s => 3, :m => 4}
+  quantity_by_size: %{:s => 3, :m => 4, :l =>17}
 }
 
 item5 = %BoutiqueInventory.SingleItemBoutique{
@@ -124,3 +124,36 @@ IO.inspect(inventory)
 IO.puts("\n\Missing item of price")
 inventory = BoutiqueInventory.with_missing_price(inventory)
 IO.inspect(inventory)
+
+IO.puts("\n\Total quantity of element")
+IO.inspect(BoutiqueInventory.total_quantity(item4))
+
+PrintTitles.printTask(6)
+
+IO.puts("Parts 1, 2, 3, 4 of point number 6")
+ast_node = TopSecret.to_ast("defp cat(a, b, c), do: nil")
+IO.inspect(TopSecret.decode_secret_message_part(ast_node, ["day"]))
+ast_node = TopSecret.to_ast("defp cat(a, b), do: nil")
+IO.inspect(TopSecret.decode_secret_message_part(ast_node, ["day"]))
+ast_node = TopSecret.to_ast("10 + 3")
+IO.inspect(TopSecret.decode_secret_message_part(ast_node, ["day"]))
+
+code = """
+defmodule MyCalendar do
+  def busy?(date, time) do
+    Date.day_of_week(
+      date != 7 and
+        time.hour in 10..16
+    )
+  end
+  def yesterday?(date) do
+    Date.diff(Date.utc_today(), date)
+  end
+end
+"""
+
+ast_node = TopSecret.to_ast(code)
+IO.puts("\nDecode secrete message from code")
+IO.puts(code)
+IO.puts("\nSecret message:")
+IO.inspect(TopSecret.decode_secret_message(code))

@@ -36,4 +36,15 @@ defmodule BoutiqueInventory do
   def with_missing_price(inventory) do
     Enum.filter(inventory, fn element -> Map.get(element, :price) === 0 end)
   end
+
+  def increase_quantity(item = %SingleItemBoutique{}, n) do
+    quantity_by_size = Map.get(item, :quantity_by_size)
+    new_map_quantity_by_size = Map.new(Enum.map(quantity_by_size, fn {k, v} -> {k, v + 2} end))
+    Map.put(item, :quantity_by_size, new_map_quantity_by_size)
+  end
+
+  def total_quantity(item = %SingleItemBoutique{}) do
+    quantity_by_size = Map.get(item, :quantity_by_size)
+    Enum.reduce(Enum.map(quantity_by_size, fn {k, v} -> v end), 0, fn x, accum -> x + accum end)
+  end
 end

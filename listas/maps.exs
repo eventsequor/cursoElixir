@@ -72,4 +72,4 @@ IO.puts("\nValue to get :b key -> #{value}")
 mapOne = %{:a => "a", :b => "b"}
 newMap = Map.delete(mapOne, :b)
 IO.puts("\nDelete element")
-IO.inspect(newMap)
+IO.inspect(Map.from_struct(newMap))
